@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Redirect, Router } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Router, Switch } from 'react-router-dom';
 import CurrentUserContext from '../contexts/currentUserContext.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import Main from './Main.js';
 import Login from './Login.js';
 import Register from './Register.js';
-import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/Api';
+import authApi from '../utils/AuthApi';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup.js';
@@ -17,12 +17,18 @@ import AddPlacePopup from './AddPlacePopup.js';
 
 function App() {
   // useState
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const [isConfirmDeletePopupOpen, setConfirmDeletePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isLoading, setLoading] = React.useState(false);
   const [cards, setCards] = React.useState([]);
 
   // Хенделры onclick
-  const handleEditProfileClick = () => {setEditProfilePopupOpen(false)};
+  const handleEditProfileClick = () => {setEditProfilePopupOpen(true)};
   const handleAddPlaceClick = () => {setAddPlacePopupOpen(true)};
   const handleEditAvatarClick = () => {setEditAvatarPopupOpen(true)};
   const handleDeleteButtonClick = () => {setConfirmDeletePopupOpen(true)};
@@ -50,7 +56,7 @@ function App() {
 
   function handleCardDelete(card){
   // Снова проверяем, являемся ли мы овнером карточки
-  const isOwner = card.owner._id === currentUser._id; // ??
+  const isOwner = card.owner._id === currentUser._id;
   api.deleteCard(card)
   .then(() => {
     // Обновляем стейт
@@ -99,6 +105,17 @@ function App() {
     })
   }
 
+  function signUpHandler(user) {
+    console.log(JSON.stringify(user))
+    authApi.signUpUser(user)
+    .then(data => {
+      console.log(data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
 
   useEffect( () => {
     Promise.all([
@@ -116,7 +133,7 @@ function App() {
 
   // Разметка приложения
   return (
-    <BrowserRouter>
+    <Switch>
         <CurrentUserContext.Provider value={currentUser}>
           <div className="root">
 
@@ -125,11 +142,12 @@ function App() {
             </Route>
 
             <Route path="/sign-up">
-              <Register />
+              <Register
+              signUpHandler={signUpHandler} />
             </Route>
 
             <ProtectedRoute
-              path="/"
+              path="main"
               loggedIn={loggedIn}
               component={Main}
               cards={cards}
@@ -141,10 +159,52 @@ function App() {
               onCardClick={handleCardClick}
             />
 
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+              submitButtonText='Сохранить'
+              loadingText='Загрузка...'
+              isLoading={isLoading}
+            />
+
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+              submitButtonText='Сохранить'
+              loadingText='Загрузка...'
+              isLoading={isLoading}
+            />
+
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              submitButtonText='Добавить'
+              loadingText='Добавление...'
+              isLoading={isLoading}
+              onAddPlace={handleAddPlaceSubmit}
+            />
+
+
+            <PopupWithForm
+              name="confirm-delete"
+              title="Вы уверены?"
+              isOpen={isConfirmDeletePopupOpen}
+              onClose={closeAllPopups}
+              children={(
+                <button className="popup__save-button popup__save-button_context_confirm-delete" type="submit">Да</button>
+              )}
+            />
+
+            <ImagePopup
+              card={selectedCard}
+              onClose={closeAllPopups}
+            />
 
           </div>
         </CurrentUserContext.Provider>
-    </BrowserRouter>
+    </Switch>
   )
 }
 

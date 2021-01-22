@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react';
 import Card from '../components/Card.js';
 import Footer from './Footer.js';
-import PopupWithForm from './PopupWithForm.js';
-import ImagePopup from './ImagePopup.js';
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import AddPlacePopup from './AddPlacePopup.js';
 import CurrentUserContext from '../contexts/currentUserContext';
 
 export default function Main(props) {
@@ -47,49 +42,6 @@ export default function Main(props) {
     </main>
 
     <Footer />
-
-    <EditProfilePopup
-      isOpen={isEditProfilePopupOpen}
-      onClose={closeAllPopups}
-      onUpdateUser={handleUpdateUser}
-      submitButtonText='Сохранить'
-      loadingText='Загрузка...'
-      isLoading={isLoading}
-    />
-
-    <EditAvatarPopup
-      isOpen={isEditAvatarPopupOpen}
-      onClose={closeAllPopups}
-      onUpdateAvatar={handleUpdateAvatar}
-      submitButtonText='Сохранить'
-      loadingText='Загрузка...'
-      isLoading={isLoading}
-    />
-
-    <AddPlacePopup
-      isOpen={isAddPlacePopupOpen}
-      onClose={closeAllPopups}
-      submitButtonText='Добавить'
-      loadingText='Добавление...'
-      isLoading={isLoading}
-      onAddPlace={handleAddPlaceSubmit}
-    />
-
-
-    <PopupWithForm
-      name="confirm-delete"
-      title="Вы уверены?"
-      isOpen={isConfirmDeletePopupOpen}
-      onClose={closeAllPopups}
-      children={(
-        <button className="popup__save-button popup__save-button_context_confirm-delete" type="submit">Да</button>
-      )}
-    />
-
-    <ImagePopup
-      card={selectedCard}
-      onClose={closeAllPopups}
-    />
 
     </>
   )
