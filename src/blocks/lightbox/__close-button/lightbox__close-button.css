@@ -1,0 +1,31 @@
+.lightbox__close-button {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  height: 41px;
+  width: 41px;
+  background-image: url(../../../images/close-icon.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: fill;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  transition: opacity .25s;
+}
+
+.lightbox__close-button:hover {
+  opacity: .8;
+}
+
+.lightbox__close-button:focus {
+  outline: 0;
+}
+
+@media screen and (max-width: 575.98px) {
+  .lightbox__close-button {
+    background-size: 40px;
+    top: -40px;
+    right: -40px;
+  }
+}

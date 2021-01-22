@@ -1,0 +1,16 @@
+.page-form__hint-message {
+  position: absolute;
+  top: 65px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
+}
+
+
+

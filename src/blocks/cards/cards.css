@@ -1,0 +1,14 @@
+.cards {
+  width: calc(100% - (199px * 2));
+  /* min-width for >768 width to get 3 images in a row */
+  min-width: 729px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 767.98px) {
+  .cards {
+    min-width: 0;
+    width: calc(100% - (19px * 2));
+  }
+}
+

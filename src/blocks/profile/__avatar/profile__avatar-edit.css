@@ -1,0 +1,16 @@
+.profile__avatar-edit {
+  background-color: #000;
+  background-image: url('../../../images/pen-icon.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 120px;
+  width: 100%;
+  border-radius: 100%;
+  visibility: hidden;
+  opacity: 0;
+  transition: all .2s ease-in-out;
+}

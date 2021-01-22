@@ -1,0 +1,9 @@
+.page-form__hint-link {
+  color: #fff;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+
+.page-form__hint-link:hover {
+  opacity: .8;
+}

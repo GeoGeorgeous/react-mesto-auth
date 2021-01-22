@@ -1,0 +1,26 @@
+.card__delete-button_visible {
+  width: 18px;
+  height: 20px;
+  background-color: initial;
+  padding: 0;
+  border: 0;
+  background-image: url(../../../images/trash-bin-icon.svg);
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity .25s;
+  cursor: pointer
+}
+
+.card__delete-button_visible:hover {
+  opacity: .6;
+}
+
+.card__delete-button_visible:focus {
+  outline: 0;
+}
+
