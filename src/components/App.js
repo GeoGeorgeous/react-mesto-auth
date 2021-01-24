@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
@@ -21,6 +22,7 @@ function App() {
   // useState
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
+  const [email, setEmail] = React.useState('');
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
@@ -43,10 +45,6 @@ function App() {
     setSelectedCard({});
   };
 
-  React.useEffect(() => {
-    tokenCheck();
-  }, []);
-
   function handleLogin() {
     setLoggedIn(true);
   }
@@ -56,7 +54,7 @@ function App() {
       const jwt = localStorage.getItem('jwt');
       authApi.getContent(jwt)
         .then((user) => {
-        // user.data ---- тут можно получить почту
+          setEmail(user.data.email);
           setLoggedIn(true);
           history.push('/');
         });
@@ -128,6 +126,7 @@ function App() {
   }
 
   useEffect(() => {
+    tokenCheck();
     Promise.all([
       api.getUser(),
       api.getCards(),
@@ -138,8 +137,12 @@ function App() {
         setCurrentUser(loadedUser);
         setCards(loadedCards);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
   }, []);
+
+  // React.useEffect(() => {
+  //   tokenCheck();
+  // }, []);
 
   // Разметка приложения
   return (
@@ -160,6 +163,7 @@ function App() {
 
           <ProtectedRoute
             path="main"
+            email={email}
             loggedIn={loggedIn}
             component={Main}
             cards={cards}

@@ -1,0 +1,7 @@
+.header__link_color_grey {
+  opacity: .8;
+}
+
+.header__link_color_grey:hover {
+  opacity: 1;
+}

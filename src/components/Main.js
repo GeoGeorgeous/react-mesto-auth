@@ -1,16 +1,23 @@
 import React from 'react';
 import Card from './Card';
 import Footer from './Footer';
+import Header from './Header';
 import CurrentUserContext from '../contexts/currentUserContext';
 
 export default function Main(props) {
   const {
-    onEditAvatar, onEditProfile, onAddPlace, cards,
+    onEditAvatar, onEditProfile, onAddPlace, cards, email, loggedIn,
   } = props;
   const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <>
+      <Header
+        linkText="Выйти"
+        link="/sign-in"
+        email={email}
+        loggedIn={loggedIn}
+      />
       <main className="root__main">
         <section className="profile">
           <div className="profile__avatar">
