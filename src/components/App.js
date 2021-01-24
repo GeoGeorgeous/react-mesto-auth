@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Redirect, Router, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Router, Switch, useHistory } from 'react-router-dom';
 import CurrentUserContext from '../contexts/currentUserContext.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import Main from './Main.js';
@@ -26,6 +25,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
   const [isLoading, setLoading] = React.useState(false);
   const [cards, setCards] = React.useState([]);
+  const history = useHistory();
 
   // Хенделры onclick
   const handleEditProfileClick = () => {setEditProfilePopupOpen(true)};
@@ -39,6 +39,26 @@ function App() {
     setEditAvatarPopupOpen(false);
     setSelectedCard({});
   };
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  function handleLogin() {
+    setLoggedIn(true);
+  }
+
+  function tokenCheck() {
+    if (localStorage.getItem('jwt')){
+      const jwt = localStorage.getItem('jwt');
+      authApi.getContent(jwt)
+      .then( (user) => {
+        // user.data ---- тут можно получить почту
+        setLoggedIn(true);
+        history.push('/')
+      })
+    }
+  }
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -105,18 +125,6 @@ function App() {
     })
   }
 
-  function signUpHandler(user) {
-    console.log(JSON.stringify(user))
-    authApi.signUpUser(user)
-    .then(data => {
-      console.log(data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
-
-
   useEffect( () => {
     Promise.all([
       api.getUser(),
@@ -138,12 +146,13 @@ function App() {
           <div className="root">
 
             <Route exact path="/sign-in">
-              <Login />
+              <Login
+              handleLogin={handleLogin}
+              loggedIn={loggedIn}/>
             </Route>
 
             <Route path="/sign-up">
-              <Register
-              signUpHandler={signUpHandler} />
+              <Register />
             </Route>
 
             <ProtectedRoute

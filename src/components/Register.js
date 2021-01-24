@@ -1,18 +1,26 @@
 import React from 'react';
 import Header from './Header'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import authApi from '../utils/AuthApi';
 
 export default function Register(props) {
+  const history = useHistory();
   const signUpHandler = props.signUpHandler;
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
-    signUpHandler({
+    const data = {
       "password": password,
       "email": email
+    }
+    authApi.signUpUser(data)
+    .then((back) => {
+      history.push('/sign-in')
+      console.log(back)
     })
+    .catch((err) => { console.log(err)} )
   }
 
   return(

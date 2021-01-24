@@ -1,7 +1,7 @@
 class AuthApi {
-  // getCards(): получить список всех карточек с сервера в виде массива (GET)
-  // getUser(): получить данные пользователя на сервере  (GET)
-  // setUser(): заменить данные пользователя на сервере (PATCH)
+    // getCards(): получить список всех карточек с сервера в виде массива (GET)
+    // getUser(): получить данные пользователя на сервере  (GET)
+    // setUser(): заменить данные пользователя на сервере (PATCH)
 
     constructor({baseUrl, headers}) {
       this._baseUrl = baseUrl;
@@ -18,9 +18,12 @@ class AuthApi {
       })
     }
 
-    getUser() {
+    getContent(JWT) {
       return this._fetchButCatch(`${this._baseUrl}/users/me`, {
-        headers: this._headers
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" : `Bearer ${JWT}`
+      }
       })
     }
 
@@ -33,14 +36,20 @@ class AuthApi {
       });
     }
 
-    signInUser(imgSrc) {
-      return this._fetchButCatch(`${this._baseUrl}/users/me/avatar`, {
-        method: 'PATCH',
-        headers: this._headers,
-        body: JSON.stringify({
-          avatar: imgSrc
-        })
-      });
+    authorize(loginData) {
+      return this._fetchButCatch(`${this._baseUrl}/signin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' },
+        body: JSON.stringify(loginData)
+      })
+      .then(data => {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          return data
+        }
+      })
+      .catch(err => {console.log(0)})
     }
 
   }
