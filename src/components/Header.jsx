@@ -1,12 +1,13 @@
-import logo from '../images/logo.svg';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../images/logo.svg';
 
 export default function Header(props) {
-
-  return(
+  const { link, linkText } = props;
+  return (
     <header className="header">
       <img className="logo" alt="Логотип Mesto Russia" src={logo} />
-      <Link to={props.link} className="header__link">{props.linkText}</Link>
+      <Link to={link} className="header__link">{linkText}</Link>
     </header>
-  )
+  );
 }

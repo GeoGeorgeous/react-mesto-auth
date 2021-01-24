@@ -6,7 +6,6 @@ export default function InfoTooltop(props) {
   const success = props.isSuccess;
 
   const openClass = props.isOpen ? 'popup_opened' : '';
-  const disabledClass = props.isLoading ? 'popup__save-button_inactive' : '';
 
   return (
     <div className={`popup popup_type_${props.name} ${openClass}`} data-type="place">
