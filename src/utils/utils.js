@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* ---------- Дефолтные карточоки ---------- */
 import pokrovkaImage from '../images/card__Pokrovka.jpg';
 import TSUMImage from '../images/card__TeatralnyjProezd.jpg';
 import MoscowCityImage from '../images/card__MoscowCity.jpg';
-import MyasnitskayaImage from '../images/card__Myasnickaya.jpg'
+import MyasnitskayaImage from '../images/card__Myasnickaya.jpg';
 import ChertanovoImage from '../images/card__Chertanovo.jpg';
 import DobryninskayaImage from '../images/card__Dobryninskaya.jpg';
 
@@ -46,8 +47,8 @@ export const config = {
   inputSelector: '.popup__form-item',
   submitButtonSelector: '.popup__save-button',
   inactiveButtonClass: 'popup__save-button_inactive',
-  errorClass: 'popup__form-item_error'
-}
+  errorClass: 'popup__form-item_error',
+};
 
 // Аккаунт — Модальное окно
 export const accountPopUp = document.querySelector('.popup[data-type="account"]'); // [Аккаунт] Модальное окно
@@ -78,8 +79,8 @@ export const changeAvatarBtn = document.querySelector('.profile__avatar');
 export const userElements = {
   name: document.querySelector('.profile__name'), // Имя профиля
   about: document.querySelector('.profile__description'), // Описание Профиля
-  avatar: document.querySelector('.profile__avatar-image')
-}
+  avatar: document.querySelector('.profile__avatar-image'),
+};
 
 // Lightbox
 export const lightbox = document.querySelector('.popup[data-type="lightbox"]');

@@ -18,8 +18,8 @@ module.exports = {
   ],
   rules: {
     'no-console': 'off',
-    'no-underscore-dangle': ['warn', { allow: ['_id'] }],
-    'react/jsx-filename-extension': ['off', { allow: 'as-needed' }],
+    'no-underscore-dangle': 0,
+    'react/jsx-filename-extension': 0,
     'react/prop-types': 0,
     'react/no-children-prop': 0,
     'react/button-has-type': 0,
