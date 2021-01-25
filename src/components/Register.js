@@ -3,22 +3,29 @@ import { Link, useHistory } from 'react-router-dom';
 import Header from './Header';
 import authApi from '../utils/AuthApi';
 
-export default function Register() {
+export default function Register(props) {
+  const { handleToolTipOpen } = props;
   const history = useHistory();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
-    const data = {
+    const signUpdata = {
       password,
       email,
     };
-    authApi.signUpUser(data)
-      .then((back) => {
+    authApi.signUpUser(signUpdata)
+      .then(() => {
+        handleToolTipOpen({ success: true });
         history.push('/sign-in');
       })
-      .catch((err) => { console.log(err); });
+      .catch((err) => {
+        handleToolTipOpen({
+          success: false,
+        });
+        console.log(err);
+      });
   }
 
   return (

@@ -3,7 +3,7 @@ import successIcon from '../images/success.svg';
 import failureIcon from '../images/failure.svg';
 
 export default function InfoTooltop(props) {
-  const success = props.isSuccess;
+  const { isSuccess, onClose } = props;
 
   const openClass = props.isOpen ? 'popup_opened' : '';
 
@@ -12,14 +12,14 @@ export default function InfoTooltop(props) {
       <form className="popup__container">
         <img
           className="popup__image"
-          src={success ? successIcon : failureIcon}
-          alt={success ? 'Успех!' : 'Что-то пошло не так'}
+          src={isSuccess ? successIcon : failureIcon}
+          alt={isSuccess ? 'Успех!' : 'Что-то пошло не так'}
         />
         <h3 className="popup__title popup__title_down">
-          {success ? 'Вы успешно зарегистрировались!' : `Что-то пошло не так!
+          {isSuccess ? 'Вы успешно зарегистрировались!' : `Что-то пошло не так!
 Попробуйте ещё раз.`}
         </h3>
-        <button className="popup__close-button" type="reset" aria-label="Закрыть" onClick={props.onClose} />
+        <button className="popup__close-button" type="reset" aria-label="Закрыть" onClick={onClose} />
       </form>
     </div>
   );

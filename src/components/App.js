@@ -14,6 +14,7 @@ import api from '../utils/Api';
 import authApi from '../utils/AuthApi';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import InfoTooltip from './InfoTooltip';
 import AddPlacePopup from './AddPlacePopup';
 
 function App() {
@@ -27,21 +28,29 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isConfirmDeletePopupOpen, setConfirmDeletePopupOpen] = React.useState(false);
+  const [isToolTipOpen, setToolTipOpen] = React.useState(false);
+  const [isToolTipSuccess, setToolTipSuccess] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [isLoading, setLoading] = React.useState(false);
   const [cards, setCards] = React.useState([]);
   const history = useHistory();
 
-  // Хенделры onclick
+  // Хендлеры onclick
   const handleEditProfileClick = () => { setEditProfilePopupOpen(true); };
   const handleAddPlaceClick = () => { setAddPlacePopupOpen(true); };
   const handleEditAvatarClick = () => { setEditAvatarPopupOpen(true); };
   const handleDeleteButtonClick = () => { setConfirmDeletePopupOpen(true); };
+  const handleToolTipOpen = (status) => {
+    const { success } = status;
+    setToolTipSuccess(success);
+    setToolTipOpen(true);
+  };
   const handleCardClick = (card) => { setSelectedCard(card); };
   const closeAllPopups = () => {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
+    setToolTipOpen(false);
     setSelectedCard({});
   };
 
@@ -154,7 +163,9 @@ function App() {
           </Route>
 
           <Route path="/sign-up">
-            <Register />
+            <Register
+              handleToolTipOpen={handleToolTipOpen}
+            />
           </Route>
 
           <ProtectedRoute
@@ -174,6 +185,12 @@ function App() {
           <Route path="/">
             {loggedIn ? <Redirect to="/app" /> : <Redirect to="/sign-in" />}
           </Route>
+
+          <InfoTooltip
+            isOpen={isToolTipOpen}
+            isSuccess={isToolTipSuccess}
+            onClose={closeAllPopups}
+          />
 
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
