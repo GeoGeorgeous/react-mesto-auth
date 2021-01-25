@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "./static/css/main.03a145bb.chunk.css",
-    "main.js": "./static/js/main.7344c80f.chunk.js",
-    "main.js.map": "./static/js/main.7344c80f.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.6c13c6dd.js",
-    "runtime-main.js.map": "./static/js/runtime-main.6c13c6dd.js.map",
-    "static/js/2.1bbb0d7b.chunk.js": "./static/js/2.1bbb0d7b.chunk.js",
-    "static/js/2.1bbb0d7b.chunk.js.map": "./static/js/2.1bbb0d7b.chunk.js.map",
-    "static/js/3.60376d5d.chunk.js": "./static/js/3.60376d5d.chunk.js",
-    "static/js/3.60376d5d.chunk.js.map": "./static/js/3.60376d5d.chunk.js.map",
-    "index.html": "./index.html",
-    "static/css/main.03a145bb.chunk.css.map": "./static/css/main.03a145bb.chunk.css.map",
-    "static/js/2.1bbb0d7b.chunk.js.LICENSE.txt": "./static/js/2.1bbb0d7b.chunk.js.LICENSE.txt",
-    "static/media/index.css": "./static/media/trash-bin-icon.dd7c53a4.svg",
-    "static/media/logo.2e17206c.svg": "./static/media/logo.2e17206c.svg"
+    "main.css": "/GeoGeorgeous/react-mesto-auth/static/css/main.ca23068f.chunk.css",
+    "main.js": "/GeoGeorgeous/react-mesto-auth/static/js/main.7344c80f.chunk.js",
+    "main.js.map": "/GeoGeorgeous/react-mesto-auth/static/js/main.7344c80f.chunk.js.map",
+    "runtime-main.js": "/GeoGeorgeous/react-mesto-auth/static/js/runtime-main.7f240573.js",
+    "runtime-main.js.map": "/GeoGeorgeous/react-mesto-auth/static/js/runtime-main.7f240573.js.map",
+    "static/js/2.1bbb0d7b.chunk.js": "/GeoGeorgeous/react-mesto-auth/static/js/2.1bbb0d7b.chunk.js",
+    "static/js/2.1bbb0d7b.chunk.js.map": "/GeoGeorgeous/react-mesto-auth/static/js/2.1bbb0d7b.chunk.js.map",
+    "static/js/3.60376d5d.chunk.js": "/GeoGeorgeous/react-mesto-auth/static/js/3.60376d5d.chunk.js",
+    "static/js/3.60376d5d.chunk.js.map": "/GeoGeorgeous/react-mesto-auth/static/js/3.60376d5d.chunk.js.map",
+    "index.html": "/GeoGeorgeous/react-mesto-auth/index.html",
+    "static/css/main.ca23068f.chunk.css.map": "/GeoGeorgeous/react-mesto-auth/static/css/main.ca23068f.chunk.css.map",
+    "static/js/2.1bbb0d7b.chunk.js.LICENSE.txt": "/GeoGeorgeous/react-mesto-auth/static/js/2.1bbb0d7b.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/GeoGeorgeous/react-mesto-auth/static/media/trash-bin-icon.dd7c53a4.svg",
+    "static/media/logo.2e17206c.svg": "/GeoGeorgeous/react-mesto-auth/static/media/logo.2e17206c.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.6c13c6dd.js",
+    "static/js/runtime-main.7f240573.js",
     "static/js/2.1bbb0d7b.chunk.js",
-    "static/css/main.03a145bb.chunk.css",
+    "static/css/main.ca23068f.chunk.css",
     "static/js/main.7344c80f.chunk.js"
   ]
 }
