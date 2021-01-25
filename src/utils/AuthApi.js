@@ -19,7 +19,7 @@ class AuthApi {
       });
   }
 
-  getContent(JWT) {
+  verify(JWT) {
     return this._fetchButCatch(`${this._baseUrl}/users/me`, {
       headers: {
         'Content-Type': 'application/json',

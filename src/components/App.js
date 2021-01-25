@@ -1,5 +1,3 @@
-/* eslint-disable */
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import {
@@ -52,7 +50,7 @@ function App() {
   function tokenCheck() {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
-      authApi.getContent(jwt)
+      authApi.verify(jwt)
         .then((user) => {
           setEmail(user.data.email);
           setLoggedIn(true);
@@ -76,14 +74,15 @@ function App() {
   }
 
   function handleCardDelete(card) {
-  // Снова проверяем, являемся ли мы овнером карточки
-    const isOwner = card.owner._id === currentUser._id;
-    api.deleteCard(card)
-      .then(() => {
+    // Снова проверяем, являемся ли мы овнером карточки
+    if (card.owner._id === currentUser._id) {
+      api.deleteCard(card)
+        .then(() => {
         // Обновляем стейт
-        setCards(cards.filter((c) => c._id !== card._id));
-      })
-      .catch((err) => console.error(err));
+          setCards(cards.filter((c) => c._id !== card._id));
+        })
+        .catch((err) => console.error(err));
+    }
   }
 
   function handleUpdateUser(userData) {
@@ -113,7 +112,6 @@ function App() {
   }
 
   function handleAddPlaceSubmit(card) {
-    console.log(1111)
     setLoading(true);
     api.uploadCard(card)
       .then((uploadedCard) => {
@@ -127,7 +125,7 @@ function App() {
   }
 
   useEffect(() => {
-    tokenCheck();
+    tokenCheck(); // Проверяем токен
     Promise.all([
       api.getUser(),
       api.getCards(),
@@ -138,12 +136,8 @@ function App() {
         setCurrentUser(loadedUser);
         setCards(loadedCards);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => console.error(err));
   }, []);
-
-  // React.useEffect(() => {
-  //   tokenCheck();
-  // }, []);
 
   // Разметка приложения
   return (
