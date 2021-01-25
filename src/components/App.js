@@ -54,10 +54,6 @@ function App() {
     setSelectedCard({});
   };
 
-  function handleLogin() {
-    setLoggedIn(true);
-  }
-
   function tokenCheck() {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
@@ -68,6 +64,11 @@ function App() {
           history.push('/');
         });
     }
+  }
+
+  function handleLogin() {
+    tokenCheck();
+    setLoggedIn(true);
   }
 
   function handleCardLike(card) {
