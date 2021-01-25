@@ -113,6 +113,7 @@ function App() {
   }
 
   function handleAddPlaceSubmit(card) {
+    console.log(1111)
     setLoading(true);
     api.uploadCard(card)
       .then((uploadedCard) => {
