@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import {
-  Route, Switch, useHistory,
+  Route, Switch, useHistory, Redirect,
 } from 'react-router-dom';
 import CurrentUserContext from '../contexts/currentUserContext';
 import ProtectedRoute from './ProtectedRoute';
@@ -144,7 +144,6 @@ function App() {
     <Switch>
       <CurrentUserContext.Provider value={currentUser}>
         <div className="root">
-
           <Route exact path="/sign-in">
             <Login
               handleLogin={handleLogin}
@@ -157,7 +156,7 @@ function App() {
           </Route>
 
           <ProtectedRoute
-            path="main"
+            path="/app"
             email={email}
             loggedIn={loggedIn}
             component={Main}
@@ -169,6 +168,10 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
           />
+
+          <Route path="/">
+            {loggedIn ? <Redirect to="/app" /> : <Redirect to="/sign-in" />}
+          </Route>
 
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
