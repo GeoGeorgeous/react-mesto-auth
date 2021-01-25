@@ -19,7 +19,6 @@ export default function Login(props) {
         if (res) {
           setEmail('');
           setPassword('');
-          console.log('Успешный вход!');
           props.handleLogin();
           history.push('/');
         }

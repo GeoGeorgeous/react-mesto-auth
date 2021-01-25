@@ -17,7 +17,6 @@ export default function Register() {
     authApi.signUpUser(data)
       .then((back) => {
         history.push('/sign-in');
-        console.log(back);
       })
       .catch((err) => { console.log(err); });
   }
