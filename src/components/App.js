@@ -125,7 +125,6 @@ function App() {
   }
 
   useEffect(() => {
-    tokenCheck(); // Проверяем токен
     Promise.all([
       api.getUser(),
       api.getCards(),
@@ -135,6 +134,7 @@ function App() {
         const [loadedUser, loadedCards] = values;
         setCurrentUser(loadedUser);
         setCards(loadedCards);
+        tokenCheck(); // Проверяем токен
       })
       .catch((err) => console.error(err));
   }, []);
