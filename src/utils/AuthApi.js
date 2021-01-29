@@ -60,9 +60,12 @@ class AuthApi {
   }
 }
 
+const JWT = localStorage.getItem('jwt');
+
 const authApi = new AuthApi({
   baseUrl: 'http://localhost:3000',
   headers: {
+    Authorization: `Bearer ${JWT}`,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },

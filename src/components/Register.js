@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from './Header';
-import authApi from '../utils/AuthApi';
+import api from '../utils/Api';
 
 export default function Register(props) {
   const { handleToolTipOpen } = props;
@@ -11,7 +11,7 @@ export default function Register(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    authApi.signUpUser(email, password)
+    api.signUpUser(email, password)
       .then(() => {
         handleToolTipOpen({ success: true });
         history.push('/sign-in');

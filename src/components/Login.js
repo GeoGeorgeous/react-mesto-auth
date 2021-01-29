@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from './Header';
-import authApi from '../utils/AuthApi';
+import api from '../utils/Api';
 
 export default function Login(props) {
   const history = useHistory();
@@ -10,7 +10,7 @@ export default function Login(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    authApi.authorize(email, password)
+    api.authorize(email, password)
       .then((res) => {
         if (res) {
           setEmail('');

@@ -59,7 +59,8 @@ function App() {
       const jwt = localStorage.getItem('jwt');
       authApi.verify(jwt)
         .then((user) => {
-          setEmail(user.data.email);
+          setEmail(user.email);
+          setCurrentUser(user);
           setLoggedIn(true);
           history.push('/');
         });
@@ -138,7 +139,7 @@ function App() {
 
   useEffect(() => {
     Promise.all([
-      api.getUser(),
+      // api.getUser(),
       api.getCards(),
     ])
       .then((values) => {

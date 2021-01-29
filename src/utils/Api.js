@@ -12,6 +12,11 @@ class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
+    this._jwt;
+  }
+
+  setToken(JWT) {
+    this._jwt = JWT;
   }
 
   _fetchButCatch(url, init) {
@@ -22,6 +27,46 @@ class Api {
         }
         return Promise.reject(new Error(`${response.status}`));
       });
+  }
+
+  verify(JWT) {
+    return this._fetchButCatch(`${this._baseUrl}/users/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${JWT}`,
+      },
+    });
+  }
+
+  signUpUser(email, password) {
+    return this._fetchButCatch(`${this._baseUrl}/signup`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email, password,
+      }),
+    });
+  }
+
+  authorize(email, password) {
+    return this._fetchButCatch(`${this._baseUrl}/signin`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email, password,
+      }),
+    })
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          return data;
+        }
+        return data;
+      })
+      .catch((err) => { console.log(err); });
   }
 
   getUser() {
@@ -99,9 +144,10 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-16',
+  baseUrl: 'http://localhost:3000',
   headers: {
-    authorization: '25068d5b-79ef-423f-8b22-b9922c31ad6c',
+    Authorization: 'Bearer',
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 });
