@@ -28,19 +28,26 @@ class AuthApi {
     });
   }
 
-  signUpUser(userData) {
+  signUpUser(email, password) {
     return this._fetchButCatch(`${this._baseUrl}/signup`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email, password,
+      }),
     });
   }
 
-  authorize(loginData) {
+  authorize(email, password) {
     return this._fetchButCatch(`${this._baseUrl}/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(loginData),
+      body: JSON.stringify({
+        email, password,
+      }),
     })
       .then((data) => {
         if (data.token) {
@@ -54,9 +61,9 @@ class AuthApi {
 }
 
 const authApi = new AuthApi({
-  baseUrl: 'https://auth.nomoreparties.co',
+  baseUrl: 'http://localhost:3000',
   headers: {
-    authorization: '25068d5b-79ef-423f-8b22-b9922c31ad6c',
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 });

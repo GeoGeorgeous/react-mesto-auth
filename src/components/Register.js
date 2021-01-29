@@ -11,16 +11,13 @@ export default function Register(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const signUpdata = {
-      password,
-      email,
-    };
-    authApi.signUpUser(signUpdata)
+    authApi.signUpUser(email, password)
       .then(() => {
         handleToolTipOpen({ success: true });
         history.push('/sign-in');
       })
       .catch((err) => {
+        console.log(err);
         handleToolTipOpen({
           success: false,
         });

@@ -10,11 +10,7 @@ export default function Login(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const data = {
-      password,
-      email,
-    };
-    authApi.authorize(data)
+    authApi.authorize(email, password)
       .then((res) => {
         if (res) {
           setEmail('');
