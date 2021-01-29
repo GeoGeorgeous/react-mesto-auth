@@ -59,10 +59,15 @@ function App() {
       const jwt = localStorage.getItem('jwt');
       authApi.verify(jwt)
         .then((user) => {
+          api.setToken(jwt);
           setEmail(user.email);
           setCurrentUser(user);
           setLoggedIn(true);
           history.push('/');
+        })
+        .then(() => {
+          api.getCards()
+            .then((loadedCards) => setCards(loadedCards));
         });
     }
   }
@@ -138,18 +143,19 @@ function App() {
   }
 
   useEffect(() => {
-    Promise.all([
-      // api.getUser(),
-      api.getCards(),
-    ])
-      .then((values) => {
-        console.log('👍 Успешно подключились к серверу и получили данные!');
-        const [loadedUser, loadedCards] = values;
-        setCurrentUser(loadedUser);
-        setCards(loadedCards);
-        tokenCheck(); // Проверяем токен
-      })
-      .catch((err) => console.error(err));
+    tokenCheck();
+    // Promise.all([
+    //   // api.getUser(),
+    //   api.getCards(),
+    // ])
+    //   .then((values) => {
+    //     console.log('👍 Успешно подключились к серверу и получили данные!');
+    //     const [loadedUser, loadedCards] = values;
+    //     setCurrentUser(loadedUser);
+    //     setCards(loadedCards);
+    //     tokenCheck(); // Проверяем токен
+    //   })
+    //   .catch((err) => console.error(err));
   }, []);
 
   // Разметка приложения

@@ -109,7 +109,11 @@ class Api {
 
   getCards() {
     return this._fetchButCatch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${this._jwt}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     });
   }
 
