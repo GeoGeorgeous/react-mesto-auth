@@ -173,7 +173,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://api.mesto.students.nomoredomains.work',
   headers: {
     Authorization: 'Bearer',
     Accept: 'application/json',

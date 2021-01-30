@@ -11,7 +11,6 @@ import Register from './Register';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import api from '../utils/Api';
-import authApi from '../utils/AuthApi';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import InfoTooltip from './InfoTooltip';
@@ -66,7 +65,7 @@ function App() {
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      authApi.verify(jwt)
+      api.verify(jwt)
         .then((user) => {
           api.setToken(jwt);
           setLoggedIn(true);
@@ -74,7 +73,8 @@ function App() {
           setEmail(user.email);
           setCurrentUser(user);
           fetchCards(jwt);
-        });
+        })
+        .catch((err) => console.error(err));
     }
   }
 
