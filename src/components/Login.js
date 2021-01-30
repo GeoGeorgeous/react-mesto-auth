@@ -35,6 +35,7 @@ export default function Login(props) {
               type="email"
               placeholder="Email"
               name="email"
+              autoComplete="username"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -46,6 +47,7 @@ export default function Login(props) {
               placeholder="Пароль"
               name="password"
               minLength="4"
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
               required
             />

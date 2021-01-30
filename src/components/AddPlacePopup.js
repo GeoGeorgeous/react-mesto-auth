@@ -59,7 +59,7 @@ export default function AddPlacePopup({
           </div>
           <div className="popup__form-item-group">
             <input
-              id="link"
+              id="card-link"
               className="popup__form-item popup__form-item_input_description"
               type="url"
               placeholder="Ссылка на картинку"

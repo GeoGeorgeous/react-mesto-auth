@@ -142,7 +142,6 @@ function App() {
     setLoading(true);
     api.uploadCard(card)
       .then((uploadedCard) => {
-        console.log(uploadedCard);
         setCards([uploadedCard.data, ...cards]);
         closeAllPopups();
       })
