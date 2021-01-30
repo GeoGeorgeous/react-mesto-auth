@@ -54,27 +54,33 @@ function App() {
     setSelectedCard({});
   };
 
+  function fetchCards(jwt) {
+    api.setToken(jwt);
+    api.getCards()
+      .then((loadedCards) => {
+        setCards(loadedCards.reverse());
+      })
+      .catch((err) => console.error(err));
+  }
+
+  function handleLogin() {
+    setLoggedIn(true);
+    console.log(loggedIn);
+    history.push('/');
+  }
+
   function tokenCheck() {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
       authApi.verify(jwt)
         .then((user) => {
           api.setToken(jwt);
           setEmail(user.email);
           setCurrentUser(user);
-          setLoggedIn(true);
-          history.push('/');
-        })
-        .then(() => {
-          api.getCards()
-            .then((loadedCards) => setCards(loadedCards));
+          fetchCards(jwt);
+          handleLogin();
         });
     }
-  }
-
-  function handleLogin() {
-    tokenCheck();
-    setLoggedIn(true);
   }
 
   function handleCardLike(card) {
@@ -83,17 +89,21 @@ function App() {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card, isLiked)
       .then((newCard) => {
-      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
-        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+        const newCards = cards.map((c) => (c._id === card._id ? newCard.data : c));
         // Обновляем стейт
-        setCards(newCards);
+        api.getCards()
+          .then((loadedCards) => {
+            setCards(loadedCards.reverse());
+          })
+          .catch((err) => console.error(err));
       })
       .catch((err) => console.error(err));
   }
 
   function handleCardDelete(card) {
     // Снова проверяем, являемся ли мы овнером карточки
-    if (card.owner._id === currentUser._id) {
+    if (card.owner === currentUser._id) {
       api.deleteCard(card)
         .then(() => {
         // Обновляем стейт
@@ -133,6 +143,7 @@ function App() {
     setLoading(true);
     api.uploadCard(card)
       .then((uploadedCard) => {
+        console.log(uploadedCard);
         setCards([uploadedCard.data, ...cards]);
         closeAllPopups();
       })
@@ -144,18 +155,6 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
-    // Promise.all([
-    //   // api.getUser(),
-    //   api.getCards(),
-    // ])
-    //   .then((values) => {
-    //     console.log('👍 Успешно подключились к серверу и получили данные!');
-    //     const [loadedUser, loadedCards] = values;
-    //     setCurrentUser(loadedUser);
-    //     setCards(loadedCards);
-    //     tokenCheck(); // Проверяем токен
-    //   })
-    //   .catch((err) => console.error(err));
   }, []);
 
   // Разметка приложения

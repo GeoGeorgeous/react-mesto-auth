@@ -26,7 +26,8 @@ class Api {
           return response.json();
         }
         return Promise.reject(new Error(`${response.status}`));
-      });
+      })
+      .catch((err) => { console.log(err); });
   }
 
   verify(JWT) {
