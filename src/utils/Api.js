@@ -78,7 +78,11 @@ class Api {
   setUser(userData) {
     return this._fetchButCatch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${this._jwt}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         name: userData.name,
         about: userData.about,
@@ -89,7 +93,11 @@ class Api {
   setAvatar(imgSrc) {
     return this._fetchButCatch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${this._jwt}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         avatar: imgSrc,
       }),
@@ -99,7 +107,11 @@ class Api {
   uploadCard(card) {
     return this._fetchButCatch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${this._jwt}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         name: card.name,
         link: card.link,
@@ -120,7 +132,11 @@ class Api {
   deleteCard(card) {
     return this._fetchButCatch(`${this._baseUrl}/cards/${card._id}`, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${this._jwt}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     });
   }
 
@@ -133,16 +149,24 @@ class Api {
   }
 
   setLike(card) {
-    return this._fetchButCatch(`${this._baseUrl}/cards/likes/${card._id}`, {
+    return this._fetchButCatch(`${this._baseUrl}/cards/${card._id}/likes`, {
       method: 'PUT',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${this._jwt}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     });
   }
 
   removeLike(card) {
-    return this._fetchButCatch(`${this._baseUrl}/cards/likes/${card._id}`, {
+    return this._fetchButCatch(`${this._baseUrl}/cards/${card._id}/likes`, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${this._jwt}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     });
   }
 }

@@ -27,7 +27,6 @@ export default function AddPlacePopup({
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(44444);
     onAddPlace(newCard);
   }
 

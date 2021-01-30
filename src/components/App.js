@@ -107,7 +107,7 @@ function App() {
     setLoading(true);
     api.setUser(userData)
       .then((user) => {
-        setCurrentUser(user);
+        setCurrentUser(user.data);
         closeAllPopups();
       })
       .catch((err) => console.error(err))
@@ -120,7 +120,7 @@ function App() {
     setLoading(true);
     api.setAvatar(imgSrc)
       .then((user) => {
-        setCurrentUser(user);
+        setCurrentUser(user.data);
         closeAllPopups();
       })
       .catch((err) => console.error(err))
@@ -133,7 +133,7 @@ function App() {
     setLoading(true);
     api.uploadCard(card)
       .then((uploadedCard) => {
-        setCards([uploadedCard, ...cards]);
+        setCards([uploadedCard.data, ...cards]);
         closeAllPopups();
       })
       .catch((err) => console.error(err))
