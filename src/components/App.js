@@ -63,24 +63,23 @@ function App() {
       .catch((err) => console.error(err));
   }
 
-  function handleLogin() {
-    setLoggedIn(true);
-    console.log(loggedIn);
-    history.push('/');
-  }
-
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       authApi.verify(jwt)
         .then((user) => {
           api.setToken(jwt);
+          setLoggedIn(true);
+          history.push('/');
           setEmail(user.email);
           setCurrentUser(user);
           fetchCards(jwt);
-          handleLogin();
         });
     }
+  }
+
+  function handleLogin() {
+    tokenCheck();
   }
 
   function handleCardLike(card) {
