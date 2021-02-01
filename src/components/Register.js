@@ -12,16 +12,16 @@ export default function Register(props) {
   function handleSubmit(e) {
     e.preventDefault();
     api.signUpUser(email, password)
-      .then(() => {
-        handleToolTipOpen({ success: true });
-        history.push('/sign-in');
-      })
-      .catch((err) => {
-        console.log(err);
-        handleToolTipOpen({
-          success: false,
-        });
-        console.log(err);
+      .then((res) => {
+        console.log(res);
+        if (res) {
+          handleToolTipOpen({ success: true });
+          history.push('/sign-in');
+        } else {
+          handleToolTipOpen({
+            success: false,
+          });
+        }
       });
   }
 

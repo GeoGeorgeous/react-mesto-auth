@@ -72,7 +72,11 @@ class Api {
 
   getUser() {
     return this._fetchButCatch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${this._jwt}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     });
   }
 
@@ -173,7 +177,8 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://api.mesto.students.nomoredomains.work',
+  baseUrl: 'http://localhost:3000',
+  // baseUrl: 'http://api.mesto.students.nomoredomains.work',
   headers: {
     Authorization: 'Bearer',
     Accept: 'application/json',
